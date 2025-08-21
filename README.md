@@ -51,10 +51,7 @@ watcher.watch({root .. "/config/", root .. "/src"})
 
 ```
 
-- `bin`: Path to the Symfony console (default: `bin/console`)
-- `php`: Path to the PHP binary (default: `/usr/bin/php`)
 - `docker_container`: Name of the Docker container running Symfony (optional)
-- `mapping`: Path mapping for Dockerized environments
 
 ## Usage
 
@@ -63,12 +60,6 @@ After installation and setup, the plugin provides commands and UI for:
 - Listing and running Symfony console commands
 - Viewing routes and controllers
 - Inspecting container services and parameters
-
-You can trigger the UI and features via Lua API or custom mappings. Example:
-
-```lua
-require('symfony').init()
-```
 
 ## Dependencies
 
