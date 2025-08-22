@@ -1,6 +1,6 @@
 # symfony.nvim
 
-A Neovim plugin for enhanced Symfony (PHP framework) development. It provides interactive access to Symfony console commands, routes, and service container information, with Docker support and a modern UI.
+A Neovim plugin for enhanced Symfony (PHP framework) development. It provides interactive access to Symfony console commands, routes, and service container information, with Docker support.
 
 ## Features
 
