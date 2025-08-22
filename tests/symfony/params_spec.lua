@@ -1,0 +1,35 @@
+local params = require("symfony.params")
+local utils = require("symfony.utils")
+local assert = require("luassert")
+local fixturesLoader = require("tests/fixtures/load")
+
+describe("params", function()
+  before_each(function()
+    params.clear_storage()
+  end)
+
+  it("returns nil for missing parameter", function()
+    local actual = params.find_one_by_name("bad_name")
+    assert.is_nil(actual)
+  end)
+
+  it("find by name", function()
+    local fake_dump = fixturesLoader.params()
+    params.update_storage(fake_dump)
+    local actual = params.find_one_by_name("kernel.cache_dir")
+    local expected = { { "kernel.cache_dir", "/var/www/var/cache/dev" } }
+    assert.are.same(actual, expected)
+  end)
+
+  it("filter by name", function()
+    local fake_dump = fixturesLoader.params()
+    params.update_storage(fake_dump)
+    local actual = params.filter_by_name("doctrine")
+    local actual_count = vim.tbl_count(actual)
+    assert.is_equal(actual_count, 0)
+
+    local actual_kernel = params.filter_by_name("kernel")
+    local kernel_count = vim.tbl_count(actual_kernel)
+    assert.is_equal(kernel_count, 16)
+  end)
+end)

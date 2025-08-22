@@ -10,9 +10,10 @@ A Neovim plugin for enhanced Symfony (PHP framework) development. It provides in
 - Docker integration: run commands inside a specified container
 - Symfony icon support via [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)
 
+
 ## Installation
 
-Use your favorite Neovim plugin manager. Example with [lazy.nvim](https://github.com/folke/lazy.nvim):
+Use your favorite Neovim plugin manager. For example, with [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
@@ -36,6 +37,7 @@ use {
 }
 ```
 
+
 ## Configuration
 
 Basic setup (add to your Neovim config):
@@ -52,39 +54,75 @@ symfony.setup({
   bin = "bin/console",
 })
 symfony.init()
--- watch for changes in config and src directories
--- will update routes, containers... automatically
+```
+
+Setup watcher if you'd like to automatically refresh all data when src changes
+```lua
+-- Watch for changes in config and src directories.
+-- The plugin will automatically update routes, containers, etc. when changes are detected.
 local watcher = require('symfony.watcher')
 watcher.watch({root .. "/config/", root .. "/src"})
 ```
 
-## Api
+Or you can bind for manual refresh
 
+```lua
+vim.keymap.set("n", "<leader>r", function()
+    require("symfony").refresh()
+end, { desc = "Symfony refresh" })
+vim.keymap.set("n", "<leader>rc", function()
+    require("symfony.containers").refresh()
+end, { desc = "Symfony containers refresh" })
+vim.keymap.set("n", "<leader>rr", function()
+    require("symfony.routers").refresh()
+end, { desc = "Symfony routers refrehs" })
+vim.keymap.set("n", "<leader>ro", function()
+    require("symfony.commands").refresh()
+end, { desc = "Symfony commands refresh" })
+vim.keymap.set("n", "<leader>rp", function()
+    require("symfony.params").refresh()
+end, { desc = "Symfony params refresh" })
+```
+
+
+## How it works
+
+All data is collected via Symfony console commands and stored in global variables during runtime.
+When the watcher detects changes in source files, the plugin automatically refreshes the data and updates the global variables.
+
+
+## API examples
+
+Refresh data
 ```lua
 local symfony = require('symfony')
 local routers = require('symfony.routers')
 local containers = require('symfony.containers')
 local commands = require('symfony.commands')
+local params = require('symfony.params')
 
 -- Manual Refresh
 commands.refresh()
 routers.refresh()
 containers.refresh()
+params.refresh()
+```
 
--- Get info
-local version = symfony.get_version()
+Get all dump
+```lua
+local cnt = require('symfony.containers')
+--- @type table<string, any>
+local list = ctn.get_list()
+```
 
--- Container list
-local containers = containers.get_list()
+Search
+```lua
+local params = require('symfony.params')
+--- @type table
+local list = params.filter_by_name("kernel")
 
--- Parameters list
-local params = containers.get_params()
-
--- Routers list
-local routers = routers.get_list()
-
--- Commands list
-local commands = commands.get_list()
+--- @type table|nil
+local param = params.find_one_by_name("kernel.bild_dir")
 ```
 
 ## Dependencies

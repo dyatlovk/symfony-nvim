@@ -1,0 +1,244 @@
+{
+    "definitions": {
+        "argument_metadata_factory": {
+            "class": "Symfony\\Component\\HttpKernel\\ControllerMetadata\\ArgumentMetadataFactory",
+            "public": false,
+            "synthetic": false,
+            "lazy": false,
+            "shared": true,
+            "abstract": false,
+            "autowire": false,
+            "autoconfigure": false,
+            "deprecated": false,
+            "description": "Builds {@see ArgumentMetadata} objects based on the given Controller.",
+            "file": null,
+            "tags": [],
+            "usages": [
+                "debug.argument_resolver.inner"
+            ]
+        },
+        "argument_resolver.backed_enum_resolver": {
+            "class": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\BackedEnumValueResolver",
+            "public": false,
+            "synthetic": false,
+            "lazy": false,
+            "shared": true,
+            "abstract": false,
+            "autowire": false,
+            "autoconfigure": false,
+            "deprecated": false,
+            "description": "Attempt to resolve backed enum cases from request attributes, for a route path parameter, leading to a 404 Not Found if the attribute value isn't a valid backing value for the enum type.",
+            "file": null,
+            "tags": [
+                {
+                    "name": "controller.argument_value_resolver",
+                    "parameters": {
+                        "priority": 100,
+                        "name": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\BackedEnumValueResolver"
+                    }
+                }
+            ],
+            "usages": [
+                ".debug.value_resolver.argument_resolver.backed_enum_resolver"
+            ]
+        },
+        "argument_resolver.datetime": {
+            "class": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\DateTimeValueResolver",
+            "public": false,
+            "synthetic": false,
+            "lazy": false,
+            "shared": true,
+            "abstract": false,
+            "autowire": false,
+            "autoconfigure": false,
+            "deprecated": false,
+            "description": "Convert DateTime instances from request attribute variable.",
+            "file": null,
+            "tags": [
+                {
+                    "name": "controller.argument_value_resolver",
+                    "parameters": {
+                        "priority": 100,
+                        "name": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\DateTimeValueResolver"
+                    }
+                }
+            ],
+            "usages": [
+                ".debug.value_resolver.argument_resolver.datetime"
+            ]
+        },
+        "argument_resolver.default": {
+            "class": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\DefaultValueResolver",
+            "public": false,
+            "synthetic": false,
+            "lazy": false,
+            "shared": true,
+            "abstract": false,
+            "autowire": false,
+            "autoconfigure": false,
+            "deprecated": false,
+            "description": "Yields the default value defined in the action signature when no value has been given.",
+            "file": null,
+            "tags": [
+                {
+                    "name": "controller.argument_value_resolver",
+                    "parameters": {
+                        "priority": -100,
+                        "name": "Symfony\\Component\\HttpKernel\\Controller\\ArgumentResolver\\DefaultValueResolver"
+                    }
+                }
+            ],
+            "usages": [
+                ".debug.value_resolver.argument_resolver.default"
+            ]
+        }
+    },
+    "aliases": {
+        "App\\Kernel": {
+            "service": "kernel",
+            "public": true
+        },
+        "Doctrine\\Common\\Persistence\\ManagerRegistry": {
+            "service": "doctrine",
+            "public": false
+        },
+        "Doctrine\\DBAL\\Connection": {
+            "service": "doctrine.dbal.default_connection",
+            "public": false
+        },
+        "Doctrine\\DBAL\\Connection $defaultConnection": {
+            "service": "doctrine.dbal.default_connection",
+            "public": false
+        },
+        "Doctrine\\ORM\\EntityManagerInterface": {
+            "service": "doctrine.orm.default_entity_manager",
+            "public": false
+        },
+        "Doctrine\\ORM\\EntityManagerInterface $defaultEntityManager": {
+            "service": "doctrine.orm.default_entity_manager",
+            "public": false
+        },
+        "Doctrine\\Persistence\\ManagerRegistry": {
+            "service": "doctrine",
+            "public": false
+        },
+
+        "Psr\\Cache\\CacheItemPoolInterface": {
+            "service": "cache.app",
+            "public": false
+        },
+        "Psr\\Clock\\ClockInterface": {
+            "service": "clock",
+            "public": false
+        },
+        "Psr\\Container\\ContainerInterface $parameterBag": {
+            "service": "parameter_bag",
+            "public": false
+        },
+        "Psr\\EventDispatcher\\EventDispatcherInterface": {
+            "service": "debug.event_dispatcher",
+            "public": false
+        },
+        "Psr\\Http\\Client\\ClientInterface": {
+            "service": "psr18.http_client",
+            "public": false
+        },
+        "Psr\\Http\\Message\\RequestFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Http\\Message\\ResponseFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Http\\Message\\ServerRequestFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Http\\Message\\StreamFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Http\\Message\\UploadedFileFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Http\\Message\\UriFactoryInterface": {
+            "service": "http_discovery.psr17_factory",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface": {
+            "service": "monolog.logger",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $cacheLogger": {
+            "service": "monolog.logger.cache",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $consoleLogger": {
+            "service": "monolog.logger.console",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $debugLogger": {
+            "service": "monolog.logger.debug",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $deprecationLogger": {
+            "service": "monolog.logger.deprecation",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $doctrineLogger": {
+            "service": "monolog.logger.doctrine",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $eventLogger": {
+            "service": "monolog.logger.event",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $httpClientLogger": {
+            "service": "monolog.logger.http_client",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $mailerLogger": {
+            "service": "monolog.logger.mailer",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $paymentsLogger": {
+            "service": "monolog.logger.payments",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $phpLogger": {
+            "service": "monolog.logger.php",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $profilerLogger": {
+            "service": "monolog.logger.profiler",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $requestLogger": {
+            "service": "monolog.logger.request",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $routerLogger": {
+            "service": "monolog.logger.router",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $securityLogger": {
+            "service": "monolog.logger.security",
+            "public": false
+        },
+        "Psr\\Log\\LoggerInterface $translationLogger": {
+            "service": "monolog.logger.translation",
+            "public": false
+        },
+        "SessionHandlerInterface": {
+            "service": "session.handler.native",
+            "public": false
+        },
+        "logger": {
+            "service": "monolog.logger",
+            "public": false
+        }
+    },
+    "services": []
+}

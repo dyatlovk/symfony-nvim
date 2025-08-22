@@ -2,8 +2,8 @@ local config = require("symfony.config")
 local routers = require("symfony.routers")
 local containers = require("symfony.containers")
 local commands = require("symfony.commands")
+local params = require("symfony.params")
 local icons = require("nvim-web-devicons")
-local utils = require("symfony.utils")
 
 local M = {}
 
@@ -16,6 +16,7 @@ M.refresh = function()
   commands.refresh()
   routers.refresh()
   containers.refresh()
+  params.refresh()
 end
 
 -- @param with_icon boolean

@@ -1,0 +1,32 @@
+{
+    "fragment.renderer.hinclude.global_template": null,
+    "kernel.build_dir": "\/var\/www\/var\/cache\/dev",
+    "kernel.bundles": {
+
+    },
+    "kernel.cache_dir": "\/var\/www\/var\/cache\/dev",
+    "kernel.charset": "UTF-8",
+    "kernel.container_class": "App_KernelDevDebugContainer",
+    "kernel.debug": true,
+    "kernel.default_locale": "us",
+    "kernel.enabled_locales": [],
+    "kernel.environment": "dev",
+    "kernel.error_controller": "error_controller",
+    "kernel.http_method_override": false,
+    "kernel.logs_dir": "\/var\/www\/var\/log",
+    "kernel.project_dir": "\/var\/www",
+    "kernel.secret": "%env(APP_SECRET)%",
+    "kernel.trust_x_sendfile_type_header": false,
+    "kernel.trusted_hosts": [],
+    "monolog.swift_mailer.handlers": [],
+    "session.metadata.storage_key": "_sf2_meta",
+    "session.metadata.update_threshold": 0,
+    "session.save_path": null,
+    "session.storage.options": {
+        "cache_limiter": "0",
+        "cookie_secure": "auto",
+        "cookie_httponly": true,
+        "cookie_samesite": "lax",
+        "gc_probability": 1
+    }
+}
