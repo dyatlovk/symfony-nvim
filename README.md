@@ -16,7 +16,7 @@ Use your favorite Neovim plugin manager. Example with [lazy.nvim](https://github
 
 ```lua
 {
-  'kirilldyatlov/symfony.nvim',
+  'dyatlovk/symfony-nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
@@ -28,7 +28,7 @@ Or with [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
 use {
-  'kirilldyatlov/symfony.nvim',
+  'dyatlovk/symfony-nvim',
   requires = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
@@ -41,25 +41,51 @@ use {
 Basic setup (add to your Neovim config):
 
 ```lua
+local root = vim.fn.getcwd()
 local symfony = require('symfony')
 symfony.setup({
-  docker_container = 'your_container_name', -- Docker container name (if using Docker)
+  docker_container = 'your_container_name',
+  mapping = {
+    { "/var/www/", root },
+  },
+  php = "/usr/bin/php",
+  bin = "bin/console",
 })
 symfony.init()
+-- watch for changes in config and src directories
+-- will update routes, containers... automatically
 local watcher = require('symfony.watcher')
 watcher.watch({root .. "/config/", root .. "/src"})
-
 ```
 
-- `docker_container`: Name of the Docker container running Symfony (optional)
+## Api
 
-## Usage
+```lua
+local symfony = require('symfony')
+local routers = require('symfony.routers')
+local containers = require('symfony.containers')
+local commands = require('symfony.commands')
 
-After installation and setup, the plugin provides commands and UI for:
+-- Manual Refresh
+commands.refresh()
+routers.refresh()
+containers.refresh()
 
-- Listing and running Symfony console commands
-- Viewing routes and controllers
-- Inspecting container services and parameters
+-- Get info
+local version = symfony.get_version()
+
+-- Container list
+local containers = containers.get_list()
+
+-- Parameters list
+local params = containers.get_params()
+
+-- Routers list
+local routers = routers.get_list()
+
+-- Commands list
+local commands = commands.get_list()
+```
 
 ## Dependencies
 
