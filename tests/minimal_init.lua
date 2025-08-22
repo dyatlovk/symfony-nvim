@@ -2,7 +2,7 @@ vim.o.swapfile = false
 vim.bo.swapfile = false
 
 local root = vim.fn.getcwd()
-local package_root = root .. ".tests/site/pack/deps/start/"
+local package_root = root .. "/.tests/site/pack/deps/start/"
 
 --- @param name string
 local test_path = function(name)

@@ -125,6 +125,10 @@ local list = params.filter_by_name("kernel")
 local param = params.find_one_by_name("kernel.bild_dir")
 ```
 
+## Integrations
+
+- Telescope [examples](./examples/telescope)
+
 ## Dependencies
 
 - [nvim-lua/plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
