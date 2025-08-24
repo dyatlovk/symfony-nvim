@@ -2,6 +2,12 @@
 
 A Neovim plugin for enhanced Symfony (PHP framework) development. It provides interactive access to Symfony console commands, routes, and service container information, with Docker support.
 
+
+## Demo
+
+https://github.com/user-attachments/assets/ae1c28e7-f46e-4666-b2b7-6bce8f18c886
+
+
 ## Features
 
 - List and run Symfony console commands from within Neovim
@@ -24,6 +30,7 @@ Use your favorite Neovim plugin manager. For example, with [lazy.nvim](https://g
   },
 }
 ```
+
 
 Or with [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
@@ -67,21 +74,11 @@ watcher.watch({root .. "/config/", root .. "/src"})
 Or you can bind for manual refresh
 
 ```lua
-vim.keymap.set("n", "<leader>r", function()
-    require("symfony").refresh()
-end, { desc = "Symfony refresh" })
-vim.keymap.set("n", "<leader>rc", function()
-    require("symfony.containers").refresh()
-end, { desc = "Symfony containers refresh" })
-vim.keymap.set("n", "<leader>rr", function()
-    require("symfony.routers").refresh()
-end, { desc = "Symfony routers refrehs" })
-vim.keymap.set("n", "<leader>ro", function()
-    require("symfony.commands").refresh()
-end, { desc = "Symfony commands refresh" })
-vim.keymap.set("n", "<leader>rp", function()
-    require("symfony.params").refresh()
-end, { desc = "Symfony params refresh" })
+vim.keymap.set("n", "<leader>r", function() require("symfony").refresh()end, { desc = "Symfony refresh" })
+vim.keymap.set("n", "<leader>rc", function() require("symfony.containers").refresh() end, { desc = "Symfony containers refresh" })
+vim.keymap.set("n", "<leader>rr", function() require("symfony.routers").refresh() end, { desc = "Symfony routers refrehs" })
+vim.keymap.set("n", "<leader>ro", function() require("symfony.commands").refresh() end, { desc = "Symfony commands refresh" })
+vim.keymap.set("n", "<leader>rp", function() require("symfony.params").refresh() end, { desc = "Symfony params refresh" })
 ```
 
 
