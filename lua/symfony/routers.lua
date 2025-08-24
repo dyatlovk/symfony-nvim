@@ -66,7 +66,6 @@ local onEvent = function(j, code, signal)
     return
   end
   local data = j:result()
-  utils.dumpTable(data)
   for _, v in pairs(data) do
     if v ~= "" then
       table.insert(item, v)
