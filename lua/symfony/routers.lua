@@ -4,6 +4,8 @@ local config = require("symfony.config")
 
 local M = {}
 
+--- Return cached routers
+--- @return table<string, any>
 M.get_list = function()
   return vim.g.symfony_routers
 end
@@ -13,7 +15,7 @@ M.update_storage = function(val)
 end
 
 M.clear_storage = function()
-  M.update_storage(nil)
+  M.update_storage({})
 end
 
 --- @param name string
@@ -34,6 +36,7 @@ M.find_one_by_name = function(name)
   return nil
 end
 
+--- Search by router name
 --- @param q string
 --- @return table<string, any>
 M.search = function(q)
@@ -48,6 +51,7 @@ M.search = function(q)
   return results
 end
 
+--- Filter by router name
 --- @param name string
 --- @return table<string, any>
 M.filter_by_name = function(name)
@@ -60,12 +64,14 @@ M.filter_by_name = function(name)
   return result
 end
 
+--- @private
 local onEvent = function(j, code, signal)
   if code ~= 0 then
     M.clear_storage()
     return
   end
   local data = j:result()
+  local item = {}
   for _, v in pairs(data) do
     if v ~= "" then
       table.insert(item, v)
@@ -83,14 +89,10 @@ local onEvent = function(j, code, signal)
   end, 0)
 end
 
-M.parseCollection = function()
+--- @private
+local parseCollection = function()
   utils.clear_cmdline()
   if not config.is_valid() then
-    M.clear_storage()
-    return
-  end
-  -- check cache
-  if M.get_list() ~= nil then
     M.clear_storage()
     return
   end
@@ -105,7 +107,7 @@ end
 
 M.refresh = function()
   M.clear_storage()
-  M.parseCollection()
+  parseCollection()
 end
 
 return M
