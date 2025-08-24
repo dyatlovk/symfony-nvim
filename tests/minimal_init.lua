@@ -6,7 +6,7 @@ local package_root = root .. "/.tests/site/pack/deps/start/"
 
 --- @param name string
 local test_path = function(name)
-  return root .. name
+  return root .. "/" .. name
 end
 
 ---@param plugin string
