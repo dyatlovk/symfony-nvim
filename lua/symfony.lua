@@ -4,13 +4,10 @@ local containers = require("symfony.containers")
 local commands = require("symfony.commands")
 local params = require("symfony.params")
 local icons = require("nvim-web-devicons")
+local utils = require("symfony.utils")
+local telescope = require("telescope")
 
 local M = {}
-
-M.init = function()
-  M.refresh()
-  M.seticon()
-end
 
 M.refresh = function()
   commands.refresh()
@@ -48,6 +45,60 @@ end
 
 M.setup = function(opt)
   config.setup(opt)
+end
+
+local function command(name, cmd, opts)
+  vim.api.nvim_create_user_command(name, cmd, opts or {})
+end
+
+local function commands_setup()
+  command("SymfonyRefresh", function()
+    M.refresh()
+  end)
+  command("SymfonyParams", function()
+    vim.cmd("Telescope symfony params")
+  end)
+  command("SymfonyRouters", function()
+    vim.cmd("Telescope symfony routers")
+  end)
+  command("SymfonyCommands", function()
+    vim.cmd("Telescope symfony commands")
+  end)
+  command("SymfonyContainers", function()
+    vim.cmd("Telescope symfony containers")
+  end)
+  command("SymfonyVersion", function()
+    local v = M.get_version(false)
+    utils.notify(v)
+  end)
+end
+
+local function telescope_setup()
+  telescope.setup({
+    extensions = {
+      symfony = {
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = {
+            mirror = true,
+            width = 0.9,
+            height = 0.9,
+            preview_cutoff = 0,
+            preview_height = 0.5,
+            prompt_position = "top",
+          },
+        },
+      },
+    },
+  })
+  telescope.load_extension("symfony")
+end
+
+M.init = function()
+  M.refresh()
+  M.seticon()
+  commands_setup()
+  telescope_setup()
 end
 
 return M

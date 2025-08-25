@@ -1,7 +1,6 @@
 local containers = require("symfony.containers")
 local assert = require("luassert")
 local fixturesLoader = require("tests/fixtures/load")
-local utils = require("symfony.utils")
 
 describe("containers", function()
   before_each(function()

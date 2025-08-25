@@ -26,11 +26,10 @@ M.find_one_by_name = function(name)
     return nil
   end
 
-  local result = {}
   for _name, router in pairs(collection) do
     if _name == name then
-      table.insert(result, { name, router })
-      return result
+      router["name"] = _name
+      return router
     end
   end
   return nil

@@ -1,19 +1,21 @@
+local M = {}
+
 local symfony_ok, _ = pcall(require, "symfony")
+if not symfony_ok then
+  error("Symfony plugin not loaded")
+  return
+end
 
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
-local telescope = require("telescope")
 
 local get_list = function()
   local list = {}
-  local params = {}
-  if symfony_ok then
-    local containers = require("symfony.params")
-    params = containers.get_list()
-  end
+  local containers = require("symfony.params")
+  local params = containers.get_list()
   for name, param in pairs(params) do
     local line = string.format("%-40s | %s", name, param)
     table.insert(list, line)
@@ -21,7 +23,7 @@ local get_list = function()
   return list
 end
 
-local show = function()
+M.picker = function()
   pickers
     .new({
       prompt_title = "Symfony Parameters",
@@ -36,8 +38,6 @@ local show = function()
             return false
           end
           actions.close(prompt_bufnr)
-          local selected_text = selection[1]
-          vim.api.nvim_put({ selected_text }, "", false, true)
         end, { desc = "Insert param" })
         return true
       end,
@@ -45,12 +45,4 @@ local show = function()
     :find()
 end
 
-if not symfony_ok then
-  return
-end
-
-return telescope.register_extension({
-  exports = {
-    symfony_params = show,
-  },
-})
+return M

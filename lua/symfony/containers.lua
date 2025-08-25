@@ -37,6 +37,7 @@ M.find_one_by_name = function(name)
   end
   for _name, container in pairs(containers.definitions) do
     if _name == name then
+      container["name"] = _name
       return container
     end
   end

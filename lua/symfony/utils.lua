@@ -52,8 +52,8 @@ end
 
 M.clear_cmdline = function()
   vim.defer_fn(function()
-  	 vim.cmd("redraw!")
-  	 vim.cmd("clear")
+    vim.cmd("redraw!")
+    vim.cmd("clear")
   end, 0)
 end
 
@@ -63,8 +63,8 @@ M.notify = function(msg)
   -- vim.notify("[Symfony] " .. msg, vim.log.levels.INFO)
   -- vim.api.nvim_echo("[Symfony] " .. msg, true, {})
   vim.defer_fn(function()
-  vim.api.nvim_echo({ { "[Symfony] " .. msg, "Comment" } }, true, {})
-end, 0)
+    vim.api.nvim_echo({ { "[Symfony] " .. msg, "Comment" } }, true, {})
+  end, 0)
 end
 
 M.echo = function(opts)
