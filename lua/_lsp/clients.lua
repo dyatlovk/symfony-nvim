@@ -37,7 +37,6 @@ end
 M.request_symbols = function(client_name)
   local client = M.get_client_by_name(client_name)
   if client == nil then
-    print("Client " .. client_name .. " not found")
     return {}
   end
 

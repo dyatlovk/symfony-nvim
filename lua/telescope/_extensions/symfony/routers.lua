@@ -121,7 +121,12 @@ local function mappings(_, map)
     vim.cmd("edit " .. path_abs)
 
     -- goto method via lsp
+    -- TODO: make client name configurable
     local symbols = lsp_client.request_symbols("phpactor")
+    -- return if no symbols found
+    if symbols == nil or utils.tableIsEmpty(symbols) then
+      return false
+    end
     local symbol = lsp_client.filter_symbol_name(symbols, controller_method)
     local line_number = symbol["selectionRange"]["start"]["line"]
     vim.api.nvim_win_set_cursor(0, { line_number, 0 })
