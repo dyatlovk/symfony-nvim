@@ -31,4 +31,25 @@ describe("routers", function()
     local admin_count = vim.tbl_count(actual_admin)
     assert.is_equal(admin_count, 2)
   end)
+
+  it("ResolvePathByNS", function()
+    local path = routers.resolve_namespace_path("App\\Controller\\Site\\DefaultController")
+    assert.is_equal(path, "src/Controller/Site/DefaultController.php")
+  end)
+
+  it("FindControllerPathFound", function()
+    local fake_dump = fixturesLoader.routers()
+    routers.update_storage(fake_dump)
+    local actual = routers.get_controller_by_name("home")
+    local expected = { "App\\Controller\\Site\\DefaultController", "index" }
+    assert.are.same(actual, expected)
+  end)
+
+  it("FindControllerPathNotFound", function()
+    local fake_dump = fixturesLoader.routers()
+    routers.update_storage(fake_dump)
+    local actual = routers.get_controller_by_name("bad_name")
+    local expected = {}
+    assert.are.same(actual, expected)
+  end)
 end)

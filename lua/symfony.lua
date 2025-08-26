@@ -5,7 +5,6 @@ local commands = require("symfony.commands")
 local params = require("symfony.params")
 local icons = require("nvim-web-devicons")
 local utils = require("symfony.utils")
-local telescope = require("telescope")
 
 local M = {}
 
@@ -74,7 +73,7 @@ local function commands_setup()
 end
 
 local function telescope_setup()
-  telescope.setup({
+  require("telescope").setup({
     extensions = {
       symfony = {
         layout_strategy = "vertical",
@@ -91,7 +90,7 @@ local function telescope_setup()
       },
     },
   })
-  telescope.load_extension("symfony")
+  require("telescope").load_extension("symfony")
 end
 
 M.init = function()

@@ -35,6 +35,42 @@ M.find_one_by_name = function(name)
   return nil
 end
 
+local function split_by_double_colon(str)
+  local i = str:find("::", 1, true)
+  if i then
+    return { str:sub(1, i - 1), str:sub(i + 2) }
+  else
+    return { str }
+  end
+end
+
+--- Convert namespace to real path
+--- "App\\Controller\\DefaultController" -> "src/Controller/DefaultController.php"
+--- @param fqcn string
+--- @return string
+M.resolve_namespace_path = function(fqcn)
+  -- TODO: "App\\" substring should extract from composer
+  local path = fqcn:gsub("^App\\", "src/"):gsub("\\", "/") .. ".php"
+  return path
+end
+
+--- @param name string
+--- @return table<string, string>
+M.get_controller_by_name = function(name)
+  local router = M.find_one_by_name(name)
+  if router == nil then
+    return {}
+  end
+  if router["defaults"] == nil then
+    return {}
+  end
+
+  -- App\\Controller\\Path::index
+  local fullPath = router["defaults"]["_controller"]
+  local result = split_by_double_colon(fullPath)
+  return result
+end
+
 --- Search by router name
 --- @param q string
 --- @return table<string, any>

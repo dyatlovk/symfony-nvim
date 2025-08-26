@@ -8,6 +8,8 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local previewers = require("telescope.previewers")
 local putils = require("telescope.previewers.utils")
+local utils = require("symfony.utils")
+local lsp_client = require("_lsp.clients")
 
 if not symfony_ok then
   error("Symfony plugin not loaded")
@@ -96,6 +98,37 @@ local preview = function(opts)
   })
 end
 
+local function mappings(_, map)
+  map("i", "<CR>", function(prompt_bufnr)
+    local selection = action_state.get_selected_entry()
+    if not selection then
+      return false
+    end
+    local router_name = selection[1]
+    local module = require("symfony.routers")
+    local router = module.get_controller_by_name(router_name)
+    if utils.tableIsEmpty(router) then
+      return false
+    end
+    local controller_ns = router[1]
+    local controller_method = router[2]
+    local path = module.resolve_namespace_path(controller_ns)
+    -- TODO: Get current host dir from config
+    local path_abs = vim.fn.getcwd() .. "/" .. path
+    actions.close(prompt_bufnr)
+
+    -- open controller in new buffer
+    vim.cmd("edit " .. path_abs)
+
+    -- goto method via lsp
+    local symbols = lsp_client.request_symbols("phpactor")
+    local symbol = lsp_client.filter_symbol_name(symbols, controller_method)
+    local line_number = symbol["selectionRange"]["start"]["line"]
+    vim.api.nvim_win_set_cursor(0, { line_number, 0 })
+  end, { desc = "Goto controller" })
+  return true
+end
+
 M.picker = function(opt)
   opt = opt or {}
   pickers
@@ -106,16 +139,7 @@ M.picker = function(opt)
       }),
       previewer = preview(opt),
       sorter = conf.generic_sorter({}),
-      attach_mappings = function(_, map)
-        map("i", "<CR>", function(prompt_bufnr)
-          local selection = action_state.get_selected_entry()
-          if not selection then
-            return false
-          end
-          actions.close(prompt_bufnr)
-        end, { desc = "Insert route" })
-        return true
-      end,
+      attach_mappings = mappings,
     })
     :find()
 end
