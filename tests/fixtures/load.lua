@@ -16,28 +16,23 @@ local load_json = function(path)
 end
 
 M.commands = function()
-  local path = "/tests/fixtures/commands.json"
-  return load_json(path)
+  return load_json("/tests/fixtures/commands.json")
 end
 
 M.containers = function()
-  local path = "/tests/fixtures/containers.json"
-  return load_json(path)
+  return load_json("/tests/fixtures/containers.json")
 end
 
 M.params = function()
-  local path = "/tests/fixtures/params.json"
-  return load_json(path)
+  return load_json("/tests/fixtures/params.json")
 end
 
 M.routers = function()
-  local path = "/tests/fixtures/routers.json"
-  return load_json(path)
+  return load_json("/tests/fixtures/routers.json")
 end
 
 M.twig = function()
-  local path = "/tests/fixtures/twig.json"
-  return load_json(path)
+  return load_json("/tests/fixtures/twig.json")
 end
 
 return M
