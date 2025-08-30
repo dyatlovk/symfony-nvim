@@ -1,0 +1,97 @@
+{
+    "functions": {
+        "parent": null,
+        "block": null,
+        "attribute": null,
+        "max": [
+            "arg1",
+            "arg2"
+        ],
+        "max_alt": [
+            "value",
+            "values"
+        ],
+        "min": [
+            "value",
+            "values"
+        ],
+        "range": [
+            "start",
+            "end",
+            "step = 1"
+        ],
+        "constant": [
+            "constant",
+            "object = null",
+            "checkDefined = false"
+        ],
+        "cycle": [
+            "values",
+            "position"
+        ],
+        "random": [
+            "charset",
+            "values = null",
+            "max = null"
+        ],
+        "date": [
+            "date = null",
+            "timezone = null"
+        ]
+    },
+    "filters": {
+        "date": [
+            "format = null",
+            "timezone = null"
+        ],
+        "date_modify": [
+            "modifier"
+        ],
+        "format": [
+            "values"
+        ],
+        "replace": [
+            "from"
+        ],
+        "number_format": [
+            "decimal = null",
+            "decimalPoint = null",
+            "thousandSep = null"
+        ],
+        "abs": []
+    },
+    "tests": [
+        "even",
+        "odd",
+        "defined",
+        "same as",
+        "none",
+        "null",
+        "divisible by",
+        "constant",
+        "empty",
+        "iterable",
+        "sequence",
+        "mapping",
+        "selectedchoice",
+        "rootform"
+    ],
+    "globals": {
+        "var_example": {},
+        "app": {},
+        "number": 10,
+        "string": "test"
+    },
+    "loader_paths": {
+        "@Twig": [
+            "templates\/bundles\/TwigBundle"
+        ],
+        "@!Twig": [
+            "templates\/bundles\/TwigBundle"
+        ],
+        "(None)": [
+            "templates",
+            "vendor\/symfony\/twig-bridge\/Resources\/views\/Form"
+        ]
+    }
+}

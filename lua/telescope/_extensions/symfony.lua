@@ -3,6 +3,7 @@ local containers = require("telescope._extensions.symfony.containers")
 local routers = require("telescope._extensions.symfony.routers")
 local commands = require("telescope._extensions.symfony.commands")
 local params = require("telescope._extensions.symfony.params")
+local twig = require("telescope._extensions.symfony.twig")
 
 local _options = {}
 
@@ -22,6 +23,9 @@ return telescope.register_extension({
     end,
     params = function()
       params.picker()
+    end,
+    twig = function()
+      twig.picker(_options)
     end,
   },
 })

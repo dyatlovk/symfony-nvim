@@ -3,6 +3,7 @@ local routers = require("symfony.routers")
 local containers = require("symfony.containers")
 local commands = require("symfony.commands")
 local params = require("symfony.params")
+local twig = require("symfony.twig")
 local icons = require("nvim-web-devicons")
 local utils = require("symfony.utils")
 
@@ -13,6 +14,7 @@ M.refresh = function()
   routers.refresh()
   containers.refresh()
   params.refresh()
+  twig.refresh()
 end
 
 -- @param with_icon boolean
@@ -69,6 +71,9 @@ local function commands_setup()
   command("SymfonyVersion", function()
     local v = M.get_version(false)
     utils.notify(v)
+  end)
+  command("SymfonyTwig", function()
+    vim.cmd("Telescope symfony twig")
   end)
 end
 
