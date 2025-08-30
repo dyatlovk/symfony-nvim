@@ -119,7 +119,7 @@ local preview = function(opts)
 end
 
 M.picker = function(opts)
-  opt = opt or {}
+  opts = opts or {}
   pickers
     .new(opts, {
       prompt_title = "Symfony Containers",
