@@ -78,4 +78,17 @@ M.tableIsEmpty = function(t)
   return next(t) == nil
 end
 
+--- Check if a file exist
+--- @param file string
+--- @return boolean
+M.isFileExists = function(file)
+  local f = io.open(file, "r")
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
 return M
