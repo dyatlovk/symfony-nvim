@@ -13,10 +13,10 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local previewers = require("telescope.previewers")
 local putils = require("telescope.previewers.utils")
+local commands = require("symfony.commands")
 
 local get_list = function()
   local list = {}
-  local commands = require("symfony.commands")
   local cmds = commands.get_list()
   for _, cmd in pairs(cmds.namespaces) do
     local ns_cmds = cmd.commands
@@ -83,7 +83,9 @@ M.picker = function(opts)
           if not selection then
             return false
           end
+          local cmd = selection.value
           actions.close(prompt_bufnr)
+          commands.execute(cmd)
         end, { desc = "Insert command" })
         return true
       end,

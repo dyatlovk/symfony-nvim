@@ -1,6 +1,7 @@
 local utils = require("symfony.utils")
 local docker = require("symfony.docker")
 local config = require("symfony.config")
+local windows = require("ui.windows")
 
 local M = {}
 
@@ -101,6 +102,17 @@ M.parse = function()
     return
   end
   job:start()
+end
+
+-- Execute a command in terminal
+M.execute = function(name)
+  if name == nil or name == "" then
+    utils.notify("No command provided")
+    return
+  end
+  local cmd = docker.make_command({ name })
+  windows.open()
+  vim.fn.termopen(cmd)
 end
 
 M.refresh = function()
