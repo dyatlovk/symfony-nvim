@@ -6,6 +6,8 @@ local params = require("symfony.params")
 local twig = require("symfony.twig")
 local icons = require("nvim-web-devicons")
 local utils = require("symfony.utils")
+local highlights = require("symfony.highlights")
+local templates = require("symfony.templates")
 
 local M = {}
 
@@ -99,10 +101,12 @@ local function telescope_setup()
 end
 
 M.init = function()
+  highlights.setup()
   M.refresh()
   M.seticon()
   commands_setup()
   telescope_setup()
+  templates.setup()
 end
 
 return M

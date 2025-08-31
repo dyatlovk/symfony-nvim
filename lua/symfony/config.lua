@@ -8,6 +8,11 @@ M.defaults = {
   },
   php = "/usr/bin/php",
   docker_container = nil,
+  mappings = {
+    twig = {
+      goTo = "g[",
+    },
+  },
 }
 
 M.get_storage = vim.g.symfony_options
