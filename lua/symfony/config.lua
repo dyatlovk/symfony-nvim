@@ -8,6 +8,8 @@ M.defaults = {
   },
   php = "/usr/bin/php",
   docker_container = nil,
+  -- Use virtual lines to split methods visually
+  virtual_line = true,
   mappings = {
     twig = {
       goTo = "g[",

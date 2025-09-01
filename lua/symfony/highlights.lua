@@ -2,6 +2,7 @@ local M = {}
 
 local ts_utils = require("nvim-treesitter.ts_utils")
 local ns = vim.api.nvim_create_namespace("symfony-hover")
+local config = require("symfony.config")
 
 --- Setup color highlights when cursor over the template path
 local hoverColors = function()
@@ -57,21 +58,74 @@ local hoverColors = function()
   })
 end
 
+local function darken(hex, factor)
+  local r = tonumber(hex:sub(2, 3), 16)
+  local g = tonumber(hex:sub(4, 5), 16)
+  local b = tonumber(hex:sub(6, 7), 16)
+  r = math.floor(r * factor)
+  g = math.floor(g * factor)
+  b = math.floor(b * factor)
+  return string.format("#%02x%02x%02x", r, g, b)
+end
+
 --- Setup color highlights
 local colorsGroup = function()
+  local hl = vim.api.nvim_get_hl(0, { name = "comment" })
+  local fg = hl.fg and string.format("#%06x", hl.fg) or "#ffffff"
+  fg = darken(fg, 0.2)
   vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
       vim.api.nvim_set_hl(0, "@Render", { italic = false, underline = false })
       vim.api.nvim_set_hl(0, "@TemplatePath", { italic = true, underline = false })
       vim.api.nvim_set_hl(0, "@TemplatePathHover", { italic = true, underline = true })
+      vim.api.nvim_set_hl(0, "SymfonyUnderline", { fg = fg, underline = false })
     end,
   })
+end
+
+local function add_virtual_lines()
+  local _ns = vim.api.nvim_create_namespace("symfony-virt-method")
+  vim.api.nvim_buf_clear_namespace(0, _ns, 0, -1)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local win_width = vim.api.nvim_win_get_width(0)
+  local dashes = string.rep("_", win_width)
+  for i, line in ipairs(lines) do
+    if line:match("^%s*[%w_]*%s*function%s+") then
+      local target = i
+      -- Move up past all contiguous attributes, comments, and blank lines
+      while target > 1 do
+        local prev = lines[target - 1]
+        if
+          prev:match("^%s*#%[")
+          or prev:match("^%s*//")
+          or prev:match("^%s*/%*")
+          or prev:match("^%s*%*")
+          or prev:match("^%s*$")
+        then
+          target = target - 1
+        else
+          break
+        end
+      end
+      vim.api.nvim_buf_set_extmark(bufnr, _ns, target - 1, 0, {
+        virt_lines = { { { dashes, "SymfonyUnderline" } } },
+        virt_lines_above = true,
+      })
+    end
+  end
 end
 
 M.setup = function()
   colorsGroup()
   hoverColors()
+  if config.options().virtual_line then
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+      pattern = "*.php",
+      callback = add_virtual_lines,
+    })
+  end
 end
 
 return M

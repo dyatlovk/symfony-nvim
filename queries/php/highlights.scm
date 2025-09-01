@@ -7,3 +7,9 @@
     arguments: (arguments (argument)* @TemplatePath)
   )
 )
+
+(attribute_list
+  (attribute_group
+    (attribute) @comment (#set! "priority" 110)
+   )
+)
