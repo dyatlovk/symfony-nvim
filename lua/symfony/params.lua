@@ -68,17 +68,17 @@ end
 M.parse = function()
   utils.clear_cmdline()
   if not config.is_valid() then
-    M.clear_params_storage()
+    M.clear_storage()
     return
   end
   if vim.g.symfony_params ~= nil then
-    M.clear_params_storage()
+    M.clear_storage()
     return
   end
   utils.notify("Parameters dump starting...")
   local job = docker.job({ "debug:container", "--parameters", "--format=json" }, function(j, code, signal)
     if code ~= 0 then
-      M.clear_params_storage()
+      M.clear_storage()
       return
     end
     local data = j:result()
@@ -89,7 +89,7 @@ M.parse = function()
       end
     end
     if utils.tableIsEmpty(item) then
-      M.clear_params_storage()
+      M.clear_storage()
       return
     end
     local s = table.concat(item, "")
@@ -100,7 +100,7 @@ M.parse = function()
     end, 0)
   end)
   if job == nil then
-    M.clear_params_storage()
+    M.clear_storage()
     return
   end
   job:start()
